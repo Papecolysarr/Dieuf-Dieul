@@ -2,11 +2,26 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Dieuf Dieul — Défis Quotidiens</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title>Dieuf Dieul — Défis Quotidiens | Évolution Spirituelle & Personnelle</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: #fdf8f0;
+    color: #1a1208;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
   :root {
     --emerald: #0d6e4f;
     --emerald-light: #10a372;
@@ -18,792 +33,450 @@
     --ink: #1a1208;
     --ink-soft: #3d3120;
     --muted: #8a7a60;
-    --white: #ffffff;
     --danger: #c0392b;
     --success: #0d6e4f;
-    --radius: 18px;
-    --shadow: 0 8px 32px rgba(13,110,79,0.10);
-    --shadow-gold: 0 4px 24px rgba(201,150,10,0.15);
+    --radius: 20px;
+    --shadow: 0 12px 28px rgba(13, 110, 79, 0.08);
+    --shadow-gold: 0 6px 18px rgba(201, 150, 10, 0.12);
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Outfit', sans-serif;
-    background: var(--sand);
-    color: var(--ink);
+  /* Screens */
+  .screen {
+    display: none;
     min-height: 100vh;
-    overflow-x: hidden;
+    position: relative;
+    z-index: 1;
+  }
+  .screen.active {
+    display: flex;
+    flex-direction: column;
   }
 
-  /* ---- GEOMETRIC BACKGROUND ---- */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 40% at 80% 10%, rgba(201,150,10,0.08) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 60% at 10% 90%, rgba(13,110,79,0.07) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* ---- SCREENS ---- */
-  .screen { display: none; min-height: 100vh; position: relative; z-index: 1; }
-  .screen.active { display: flex; flex-direction: column; }
-
-  /* ============ SPLASH SCREEN ============ */
+  /* SPLASH */
   #splash {
-    background: linear-gradient(160deg, var(--emerald-dark) 0%, var(--emerald) 60%, #1a8a62 100%);
+    background: linear-gradient(145deg, #084d37, #0d6e4f, #1a8a62);
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 40px 24px;
-    gap: 0;
+    padding: 32px;
+    position: relative;
   }
-
   .splash-pattern {
     position: absolute;
     inset: 0;
-    background-image:
-      repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 50px),
-      repeating-linear-gradient(-45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 50px);
+    background-image: radial-gradient(circle at 20% 40%, rgba(255,215,130,0.08) 2px, transparent 2px);
+    background-size: 32px 32px;
+    pointer-events: none;
   }
-
   .splash-logo {
     position: relative;
     z-index: 2;
-    animation: fadeInUp 0.8s ease;
+    animation: fadeUp 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
   }
-
-  .splash-logo .arabic-text {
+  .arabic-text {
     font-family: 'Amiri', serif;
-    font-size: 52px;
-    color: var(--gold-light);
+    font-size: 56px;
+    color: #f0b429;
     line-height: 1;
-    text-shadow: 0 2px 20px rgba(201,150,10,0.4);
-    letter-spacing: 2px;
+    text-shadow: 0 4px 18px rgba(0,0,0,0.2);
   }
-
-  .splash-logo .brand-name {
-    font-size: 42px;
+  .brand-name {
+    font-size: 46px;
     font-weight: 800;
-    color: var(--white);
+    color: white;
     letter-spacing: -1px;
-    line-height: 1;
     margin-top: 8px;
   }
-
-  .splash-logo .tagline {
-    font-size: 15px;
-    color: rgba(255,255,255,0.75);
+  .tagline {
+    font-size: 14px;
+    letter-spacing: 2.5px;
     font-weight: 300;
-    letter-spacing: 3px;
+    color: rgba(255,255,240,0.85);
+    margin-top: 12px;
     text-transform: uppercase;
-    margin-top: 10px;
   }
-
   .splash-divider {
     width: 60px;
     height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
-    margin: 32px auto;
-    position: relative;
-    z-index: 2;
+    background: linear-gradient(90deg, transparent, #f0b429, transparent);
+    margin: 28px auto;
   }
-
   .splash-subtitle {
-    font-size: 18px;
-    color: rgba(255,255,255,0.85);
-    font-weight: 400;
-    max-width: 280px;
-    line-height: 1.5;
-    position: relative;
-    z-index: 2;
-    animation: fadeInUp 0.8s ease 0.2s both;
-  }
-
-  .btn-start {
-    margin-top: 48px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    color: var(--emerald-dark);
-    font-family: 'Outfit', sans-serif;
     font-size: 17px;
-    font-weight: 700;
-    padding: 16px 48px;
+    font-weight: 400;
+    color: rgba(255,255,245,0.9);
+    max-width: 260px;
+    margin: 0 auto;
+  }
+  .btn-start {
+    margin-top: 44px;
+    background: linear-gradient(105deg, #c9960a, #f0b429);
     border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 8px 32px rgba(201,150,10,0.35);
-    position: relative;
-    z-index: 2;
-    transition: transform 0.2s, box-shadow 0.2s;
-    animation: fadeInUp 0.8s ease 0.4s both;
-  }
-  .btn-start:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201,150,10,0.45); }
-
-  /* ============ INSCRIPTION SCREEN ============ */
-  #inscription {
-    background: var(--sand);
-    padding: 0;
-    overflow-y: auto;
-  }
-
-  .insc-header {
-    background: linear-gradient(135deg, var(--emerald-dark), var(--emerald));
-    padding: 40px 24px 28px;
-    text-align: center;
-    color: white;
-  }
-
-  .insc-header h1 {
-    font-size: 26px;
+    padding: 16px 48px;
+    border-radius: 60px;
     font-weight: 800;
-    margin-bottom: 6px;
+    font-size: 18px;
+    color: #084d37;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+    font-family: 'Outfit', sans-serif;
   }
+  .btn-start:active { transform: scale(0.96); }
 
-  .insc-header p {
-    font-size: 14px;
-    opacity: 0.8;
-    font-weight: 300;
+  /* Inscription */
+  .insc-header {
+    background: linear-gradient(135deg, #084d37, #0d6e4f);
+    padding: 36px 24px 32px;
+    color: white;
+    text-align: center;
   }
-
+  .insc-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.3px; }
   .insc-step {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 24px;
   }
-
   .step-dot {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
+    width: 32px;
+    height: 32px;
     background: rgba(255,255,255,0.2);
-    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
-    font-weight: 700;
-    color: white;
-    flex-shrink: 0;
-    transition: all 0.3s;
+    font-weight: 800;
+    font-size: 14px;
+    transition: all 0.2s;
   }
-  .step-dot.done { background: var(--gold); border-color: var(--gold); }
-  .step-dot.active { background: var(--white); border-color: var(--white); color: var(--emerald); }
-
+  .step-dot.active { background: #f0b429; color: #084d37; border: none; }
+  .step-dot.done { background: white; color: #0d6e4f; }
   .step-line {
+    height: 3px;
+    background: rgba(255,255,255,0.3);
     flex: 1;
-    height: 2px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 1px;
-    transition: background 0.3s;
+    border-radius: 3px;
   }
-  .step-line.done { background: var(--gold); }
-
+  .step-line.done { background: #f0b429; }
   .insc-body {
-    padding: 28px 20px 40px;
+    padding: 28px 20px 48px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
   }
-
   .insc-section {
     background: white;
-    border-radius: var(--radius);
-    padding: 22px;
+    border-radius: 24px;
+    padding: 22px 20px;
     box-shadow: var(--shadow);
-    animation: fadeInUp 0.4s ease;
   }
-
   .section-title {
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--emerald);
+    letter-spacing: 1px;
+    color: #0d6e4f;
     margin-bottom: 16px;
     display: flex;
     align-items: center;
     gap: 8px;
   }
-
-  .section-title span { font-size: 18px; }
-
-  .field-label {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--ink-soft);
-    margin-bottom: 10px;
-  }
-
-  input[type="text"], input[type="email"] {
-    width: 100%;
-    padding: 14px 16px;
-    border: 2px solid var(--sand-dark);
-    border-radius: 12px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 15px;
-    color: var(--ink);
-    background: var(--sand);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  input:focus { border-color: var(--emerald-light); }
-
   .choice-grid {
     display: grid;
-    gap: 10px;
+    gap: 12px;
   }
-  .choice-grid.cols-2 { grid-template-columns: 1fr 1fr; }
-  .choice-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
-
+  .cols-2 { grid-template-columns: 1fr 1fr; }
+  .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
   .choice-btn {
-    padding: 14px 10px;
-    border: 2px solid var(--sand-dark);
-    border-radius: 14px;
-    background: var(--sand);
-    cursor: pointer;
+    background: #fefaf3;
+    border: 1.5px solid #e8ddcd;
+    border-radius: 18px;
+    padding: 12px 6px;
     text-align: center;
-    transition: all 0.2s;
-    font-family: 'Outfit', sans-serif;
-  }
-  .choice-btn .icon { font-size: 26px; display: block; margin-bottom: 6px; }
-  .choice-btn .label { font-size: 13px; font-weight: 600; color: var(--ink-soft); }
-  .choice-btn.selected {
-    border-color: var(--emerald);
-    background: rgba(13,110,79,0.07);
-  }
-  .choice-btn.selected .label { color: var(--emerald); }
-
-  .btn-insc {
-    width: 100%;
-    padding: 18px;
-    background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
-    color: white;
-    font-family: 'Outfit', sans-serif;
-    font-size: 17px;
-    font-weight: 700;
-    border: none;
-    border-radius: var(--radius);
     cursor: pointer;
-    box-shadow: 0 6px 24px rgba(13,110,79,0.25);
     transition: all 0.2s;
-    margin-top: 8px;
   }
-  .btn-insc:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(13,110,79,0.3); }
-  .btn-insc:disabled { opacity: 0.5; cursor: default; transform: none; }
-
-  /* ============ MAIN APP ============ */
-  #app {
-    background: var(--sand);
-    overflow-y: auto;
-    padding-bottom: 80px;
+  .choice-btn .icon { font-size: 28px; display: block; margin-bottom: 6px; }
+  .choice-btn .label { font-size: 13px; font-weight: 600; color: #3d3120; }
+  .choice-btn.selected {
+    border-color: #0d6e4f;
+    background: #eef9f3;
+    transform: scale(0.98);
+  }
+  .field-label { font-weight: 600; margin-bottom: 8px; color: #3d3120; font-size: 14px; }
+  input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid #e8ddcd;
+    border-radius: 20px;
+    background: #fefaf3;
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+  }
+  .btn-insc {
+    background: linear-gradient(105deg, #0d6e4f, #10a372);
+    border: none;
+    padding: 18px;
+    border-radius: 40px;
+    color: white;
+    font-weight: 800;
+    font-size: 17px;
+    margin-top: 12px;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(13,110,79,0.25);
   }
 
-  /* Top bar */
+  /* Main App */
   .app-topbar {
-    background: linear-gradient(135deg, var(--emerald-dark), var(--emerald));
-    padding: 18px 20px;
+    background: linear-gradient(115deg, #084d37, #0d6e4f);
+    padding: 16px 20px;
     position: sticky;
     top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 20px rgba(13,110,79,0.2);
+    z-index: 30;
   }
-
   .topbar-inner {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  .topbar-logo {
-    font-size: 22px;
-    font-weight: 800;
-    color: white;
-    display: flex;
     align-items: center;
-    gap: 8px;
-  }
-
-  .topbar-logo .gold-dot { color: var(--gold-light); }
-
-  .topbar-actions { display: flex; gap: 12px; align-items: center; }
-
-  .topbar-btn {
-    background: rgba(255,255,255,0.15);
-    border: none;
-    border-radius: 10px;
-    padding: 8px 14px;
-    color: white;
-    font-family: 'Outfit', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .topbar-btn:hover { background: rgba(255,255,255,0.25); }
-
-  .app-body {
     max-width: 500px;
     margin: 0 auto;
-    padding: 20px 16px;
+  }
+  .topbar-logo {
+    font-weight: 800;
+    font-size: 24px;
+    color: white;
+  }
+  .topbar-btn {
+    background: rgba(255,255,245,0.18);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .app-body {
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 20px 16px 100px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
   }
-
-  /* Date + greeting */
   .greeting-card {
     background: white;
-    border-radius: var(--radius);
+    border-radius: 28px;
     padding: 22px 24px;
     box-shadow: var(--shadow);
     position: relative;
     overflow: hidden;
   }
-
-  .greeting-card::after {
-    content: '☀️';
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 36px;
-    opacity: 0.15;
-  }
-
-  .greeting-date {
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-  }
-
-  .greeting-name {
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--ink);
-    margin-top: 4px;
-  }
-
-  .greeting-name .green { color: var(--emerald); }
-
-  .greeting-sub {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 4px;
-    font-weight: 400;
-  }
-
-  /* Progress ring */
+  .greeting-date { font-size: 12px; color: #8a7a60; letter-spacing: 1px; font-weight: 500; }
+  .greeting-name { font-size: 24px; font-weight: 800; margin-top: 6px; }
+  .green { color: #0d6e4f; }
   .progress-bar-wrap {
     background: white;
-    border-radius: var(--radius);
-    padding: 20px 24px;
-    box-shadow: var(--shadow);
+    border-radius: 28px;
+    padding: 20px 20px;
     display: flex;
     align-items: center;
     gap: 20px;
+    box-shadow: var(--shadow);
   }
-
-  .progress-ring {
-    position: relative;
-    width: 72px;
-    height: 72px;
-    flex-shrink: 0;
-  }
-
-  .progress-ring svg { transform: rotate(-90deg); }
-
+  .progress-ring { position: relative; width: 72px; height: 72px; flex-shrink: 0; }
+  .progress-ring svg { transform: rotate(-90deg); width: 72px; height: 72px; }
   .progress-ring-text {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
     font-weight: 800;
-    color: var(--emerald);
+    font-size: 18px;
+    color: #0d6e4f;
   }
-
-  .progress-info h3 { font-size: 15px; font-weight: 700; color: var(--ink); }
-  .progress-info p { font-size: 13px; color: var(--muted); margin-top: 3px; }
-
-  .stat-badges {
-    display: flex;
-    gap: 10px;
-    margin-top: 12px;
-    flex-wrap: wrap;
-  }
-
   .badge {
-    padding: 6px 14px;
-    border-radius: 20px;
+    padding: 5px 12px;
+    border-radius: 40px;
     font-size: 12px;
     font-weight: 600;
-    display: flex;
+    background: #f5ead8;
+    display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
   }
-  .badge.green { background: rgba(13,110,79,0.1); color: var(--emerald); }
-  .badge.gold { background: rgba(201,150,10,0.12); color: #8a6a00; }
-  .badge.red { background: rgba(192,57,43,0.1); color: var(--danger); }
-
-  /* Section heading */
-  .section-heading {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  /* Challenge cards */
-  .challenges-list { display: flex; flex-direction: column; gap: 12px; }
-
+  .badge.green { background: #e0f0ea; color: #0d6e4f; }
+  .badge.red { background: #ffe8e5; color: #c0392b; }
+  .challenges-list { display: flex; flex-direction: column; gap: 14px; }
   .challenge-card {
     background: white;
-    border-radius: var(--radius);
-    padding: 18px 18px;
-    box-shadow: var(--shadow);
+    border-radius: 24px;
+    padding: 16px 18px;
     display: flex;
-    align-items: flex-start;
     gap: 14px;
-    transition: all 0.25s;
+    box-shadow: var(--shadow);
+    transition: 0.2s;
+    border-left: 5px solid #e8ddcd;
     cursor: pointer;
-    border: 2px solid transparent;
-    position: relative;
-    overflow: hidden;
   }
-
-  .challenge-card::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--sand-dark);
-    border-radius: 4px 0 0 4px;
-    transition: background 0.25s;
-  }
-
-  .challenge-card.accepted::before { background: var(--gold); }
-  .challenge-card.done::before { background: var(--emerald); }
-  .challenge-card.failed::before { background: var(--danger); }
-
-  .challenge-card.accepted { border-color: rgba(201,150,10,0.2); background: rgba(255,253,245,1); }
-  .challenge-card.done { border-color: rgba(13,110,79,0.2); background: rgba(245,255,250,1); }
-  .challenge-card.failed { border-color: rgba(192,57,43,0.15); background: rgba(255,248,247,1); }
-
+  .challenge-card.accepted { border-left-color: #f0b429; background: #fffcf5; }
+  .challenge-card.done { border-left-color: #0d6e4f; background: #f6fef9; }
+  .challenge-card.failed { border-left-color: #c0392b; background: #fffbfa; }
   .challenge-num {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: var(--sand-dark);
+    width: 38px;
+    height: 38px;
+    background: #f5ead8;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
     font-weight: 800;
-    color: var(--muted);
-    flex-shrink: 0;
-    transition: all 0.25s;
+    color: #6b5a44;
   }
-
-  .challenge-card.accepted .challenge-num { background: rgba(201,150,10,0.15); color: #8a6a00; }
-  .challenge-card.done .challenge-num { background: var(--emerald); color: white; }
-  .challenge-card.failed .challenge-num { background: var(--danger); color: white; }
-
-  .challenge-content { flex: 1; min-width: 0; }
-
-  .challenge-category {
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: var(--muted);
-    margin-bottom: 5px;
-  }
-
-  .challenge-text {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--ink);
-    line-height: 1.45;
-  }
-
-  .challenge-verse {
-    font-family: 'Amiri', serif;
-    font-size: 13px;
-    color: var(--emerald);
-    margin-top: 8px;
-    font-style: italic;
-    line-height: 1.4;
-  }
-
-  .challenge-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-  }
-
+  .challenge-content { flex: 1; }
+  .challenge-category { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8a7a60; letter-spacing: 0.8px; }
+  .challenge-text { font-weight: 600; margin: 6px 0 4px; font-size: 14px; line-height: 1.4; }
+  .challenge-verse { font-family: 'Amiri', serif; font-size: 12px; color: #0d6e4f; margin-top: 6px; font-style: italic; }
+  .challenge-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
   .ch-btn {
-    padding: 8px 14px;
-    border-radius: 10px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 30px;
     font-weight: 700;
-    border: 2px solid;
+    font-size: 12px;
+    border: 1.5px solid;
+    background: transparent;
     cursor: pointer;
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    transition: 0.1s;
   }
-
-  .ch-btn.accept { border-color: var(--gold); color: #8a6a00; background: rgba(201,150,10,0.08); }
-  .ch-btn.accept:hover { background: rgba(201,150,10,0.18); }
-  .ch-btn.accept.active { background: var(--gold); color: white; border-color: var(--gold); }
-
-  .ch-btn.success { border-color: var(--emerald); color: var(--emerald); background: rgba(13,110,79,0.06); }
-  .ch-btn.success:hover { background: rgba(13,110,79,0.15); }
-  .ch-btn.success.active { background: var(--emerald); color: white; }
-
-  .ch-btn.fail { border-color: var(--danger); color: var(--danger); background: rgba(192,57,43,0.05); }
-  .ch-btn.fail:hover { background: rgba(192,57,43,0.1); }
-  .ch-btn.fail.active { background: var(--danger); color: white; }
-
-  /* Score history */
-  .history-list { display: flex; flex-direction: column; gap: 10px; }
-
+  .ch-btn.accept { border-color: #c9960a; color: #b57c00; background: #fff1df; }
+  .ch-btn.accept.active { background: #c9960a; color: white; }
+  .ch-btn.success { border-color: #0d6e4f; color: #0d6e4f; background: #e3f3ed; }
+  .ch-btn.success.active { background: #0d6e4f; color: white; }
+  .ch-btn.fail { border-color: #c0392b; color: #c0392b; background: #ffe2de; }
+  .history-list { display: flex; flex-direction: column; gap: 12px; }
   .history-item {
     background: white;
-    border-radius: 14px;
-    padding: 16px 20px;
-    box-shadow: var(--shadow);
+    border-radius: 20px;
+    padding: 14px 20px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
   }
-
-  .history-date { font-size: 14px; font-weight: 600; color: var(--ink); }
-  .history-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
-  .history-score { font-size: 22px; font-weight: 800; color: var(--emerald); }
-  .history-score.low { color: var(--danger); }
-  .history-score.mid { color: var(--gold); }
-
-  /* Modal */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(26,18,8,0.7);
-    z-index: 200;
-    align-items: flex-end;
-    justify-content: center;
-    backdrop-filter: blur(4px);
+  .profile-card {
+    background: linear-gradient(115deg, #084d37, #0d6e4f);
+    border-radius: 32px;
+    padding: 28px 24px;
+    color: white;
   }
-  .modal-overlay.open { display: flex; }
-
-  .modal {
-    background: white;
-    border-radius: 24px 24px 0 0;
-    padding: 32px 24px 40px;
-    width: 100%;
-    max-width: 500px;
-    animation: slideUp 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .modal-handle {
-    width: 40px;
-    height: 4px;
-    background: var(--sand-dark);
-    border-radius: 2px;
-    margin: 0 auto 24px;
-  }
-
-  .modal h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
-  .modal p { font-size: 14px; color: var(--muted); line-height: 1.5; }
-
-  .modal-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
-
-  .modal-btn {
-    padding: 16px;
-    border-radius: 14px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    border: none;
-    cursor: pointer;
+  .profile-avatar {
+    width: 64px;
+    height: 64px;
+    background: rgba(255,255,210,0.2);
+    border-radius: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    transition: all 0.2s;
+    font-size: 36px;
+    margin-bottom: 12px;
   }
-  .modal-btn.green { background: linear-gradient(135deg, var(--emerald), var(--emerald-light)); color: white; }
-  .modal-btn.red { background: linear-gradient(135deg, var(--danger), #e74c3c); color: white; }
-  .modal-btn.cancel { background: var(--sand); color: var(--muted); }
-
-  /* Animations */
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
+  .streaks-card {
+    background: white;
+    border-radius: 28px;
+    padding: 20px 24px;
+    box-shadow: var(--shadow);
   }
-
-  @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
+  .streak-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0e5d6;
   }
-
-  /* Toast */
-  .toast {
-    position: fixed;
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--ink);
-    color: white;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 600;
-    z-index: 300;
-    opacity: 0;
-    transition: all 0.3s;
-    white-space: nowrap;
-    pointer-events: none;
-  }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-  /* Bottom nav */
+  .streak-val { font-weight: 800; color: #0d6e4f; font-size: 18px; }
   .bottom-nav {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     background: white;
-    border-top: 1px solid var(--sand-dark);
-    padding: 10px 0 16px;
     display: flex;
     justify-content: space-around;
-    z-index: 100;
-    box-shadow: 0 -4px 20px rgba(13,110,79,0.08);
+    padding: 8px 16px 20px;
+    border-top: 1px solid #f0e5d6;
+    z-index: 40;
   }
-
   .nav-btn {
+    background: none;
+    border: none;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    background: none;
-    border: none;
+    font-weight: 600;
+    font-size: 12px;
+    color: #8a7a60;
     cursor: pointer;
-    padding: 6px 18px;
-    border-radius: 12px;
-    transition: background 0.15s;
   }
-
-  .nav-btn .nav-icon { font-size: 22px; }
-  .nav-btn .nav-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
-  .nav-btn.active .nav-label { color: var(--emerald); }
-  .nav-btn.active .nav-icon { transform: scale(1.1); }
-
-  /* Tab content */
+  .nav-btn.active { color: #0d6e4f; transform: translateY(-2px); }
   .tab-content { display: none; }
   .tab-content.active { display: block; }
-
-  /* Profile tab */
-  .profile-card {
-    background: linear-gradient(135deg, var(--emerald-dark), var(--emerald));
-    border-radius: var(--radius);
-    padding: 28px 24px;
-    color: white;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .profile-card::after {
-    content: '';
-    position: absolute;
-    right: -20px;
-    bottom: -20px;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.05);
-  }
-
-  .profile-avatar {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    border: 3px solid rgba(255,255,255,0.4);
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    font-size: 28px;
-    margin-bottom: 14px;
+    z-index: 200;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.2s;
   }
-
-  .profile-name { font-size: 24px; font-weight: 800; }
-  .profile-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-  .profile-tag {
-    padding: 5px 12px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.18);
-    font-size: 12px;
-    font-weight: 600;
+  .modal-overlay.open {
+    visibility: visible;
+    opacity: 1;
   }
-
-  .streaks-card {
+  .modal {
     background: white;
-    border-radius: var(--radius);
-    padding: 22px 24px;
-    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 480px;
+    border-radius: 36px 36px 0 0;
+    padding: 28px 24px 36px;
+    animation: slideUp 0.3s ease;
   }
-
-  .streaks-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
-
-  .streak-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--sand-dark);
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
   }
-  .streak-row:last-child { border: none; }
-  .streak-label { font-size: 14px; color: var(--ink-soft); }
-  .streak-val { font-size: 18px; font-weight: 800; color: var(--emerald); }
-
-  /* Small screen fixes */
-  @media (max-width: 360px) {
-    .choice-grid.cols-3 { grid-template-columns: 1fr 1fr; }
-    .challenge-text { font-size: 13px; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
   }
-
-  .empty-state {
-    text-align: center;
-    padding: 40px 20px;
-    color: var(--muted);
+  .toast {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1a1208;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-weight: 600;
     font-size: 14px;
+    opacity: 0;
+    transition: 0.2s;
+    pointer-events: none;
+    z-index: 250;
   }
-  .empty-state .big { font-size: 48px; margin-bottom: 12px; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .empty-state { text-align: center; padding: 32px 20px; color: #8a7a60; }
 </style>
 </head>
 <body>
 
-<!-- SPLASH -->
 <div id="splash" class="screen active">
   <div class="splash-pattern"></div>
   <div class="splash-logo">
@@ -812,670 +485,86 @@
     <div class="tagline">Petites actions · Grands résultats</div>
   </div>
   <div class="splash-divider"></div>
-  <p class="splash-subtitle">10 défis personnalisés chaque jour pour transformer ta vie</p>
-  <button class="btn-start" onclick="startApp()">Commencer →</button>
+  <p class="splash-subtitle">10 défis sur-mesure chaque jour pour ta transformation</p>
+  <button class="btn-start" id="splashStartBtn">🌿 Démarrer l'aventure</button>
 </div>
 
 <!-- INSCRIPTION -->
 <div id="inscription" class="screen">
   <div class="insc-header">
-    <h1>🌱 Crée ton profil</h1>
-    <p>Pour te donner les défis qui te correspondent</p>
-    <div class="insc-step" id="stepIndicator">
-      <div class="step-dot active" id="step1dot">1</div>
-      <div class="step-line" id="line1"></div>
-      <div class="step-dot" id="step2dot">2</div>
-      <div class="step-line" id="line2"></div>
+    <h1>✨ Crée ton profil</h1>
+    <div class="insc-step">
+      <div class="step-dot active" id="step1dot">1</div><div class="step-line" id="line1"></div>
+      <div class="step-dot" id="step2dot">2</div><div class="step-line" id="line2"></div>
       <div class="step-dot" id="step3dot">3</div>
     </div>
   </div>
-
   <div class="insc-body" id="inscBody">
-    <!-- Step 1 -->
-    <div class="insc-section" id="inscStep1">
-      <div class="section-title"><span>👤</span> Qui es-tu ?</div>
-      <div class="field-label">Ton prénom</div>
-      <input type="text" id="fieldName" placeholder="Écris ton prénom..." autocomplete="given-name">
-    </div>
-
-    <div class="insc-section" id="inscStep1b">
-      <div class="section-title"><span>🙏</span> Ta spiritualité</div>
-      <div class="choice-grid cols-3">
-        <div class="choice-btn" data-group="religion" data-val="musulman" onclick="pick(this)">
-          <span class="icon">🌙</span><span class="label">Musulman</span>
-        </div>
-        <div class="choice-btn" data-group="religion" data-val="chretien" onclick="pick(this)">
-          <span class="icon">✝️</span><span class="label">Chrétien</span>
-        </div>
-        <div class="choice-btn" data-group="religion" data-val="autre" onclick="pick(this)">
-          <span class="icon">🌟</span><span class="label">Autre</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="insc-section" id="inscStep2">
-      <div class="section-title"><span>💼</span> Ton statut professionnel</div>
-      <div class="choice-grid cols-3">
-        <div class="choice-btn" data-group="statut" data-val="entrepreneur" onclick="pick(this)">
-          <span class="icon">🚀</span><span class="label">Entrepreneur</span>
-        </div>
-        <div class="choice-btn" data-group="statut" data-val="employe" onclick="pick(this)">
-          <span class="icon">🏢</span><span class="label">Employé</span>
-        </div>
-        <div class="choice-btn" data-group="statut" data-val="les deux" onclick="pick(this)">
-          <span class="icon">⚡</span><span class="label">Les deux</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="insc-section">
-      <div class="section-title"><span>👫</span> Ton genre</div>
-      <div class="choice-grid cols-2">
-        <div class="choice-btn" data-group="genre" data-val="homme" onclick="pick(this)">
-          <span class="icon">👨🏾</span><span class="label">Homme</span>
-        </div>
-        <div class="choice-btn" data-group="genre" data-val="femme" onclick="pick(this)">
-          <span class="icon">👩🏾</span><span class="label">Femme</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="insc-section">
-      <div class="section-title"><span>💍</span> Ta situation familiale</div>
-      <div class="choice-grid cols-2">
-        <div class="choice-btn" data-group="mariage" data-val="marie" onclick="pick(this)">
-          <span class="icon">💍</span><span class="label">Marié(e)</span>
-        </div>
-        <div class="choice-btn" data-group="mariage" data-val="celibataire" onclick="pick(this)">
-          <span class="icon">🧍🏾</span><span class="label">Célibataire</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="insc-section">
-      <div class="section-title"><span>👶🏾</span> As-tu des enfants ?</div>
-      <div class="choice-grid cols-2">
-        <div class="choice-btn" data-group="enfants" data-val="oui" onclick="pick(this)">
-          <span class="icon">👨‍👧‍👦</span><span class="label">Oui</span>
-        </div>
-        <div class="choice-btn" data-group="enfants" data-val="non" onclick="pick(this)">
-          <span class="icon">🌱</span><span class="label">Non</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="insc-section">
-      <div class="section-title"><span>🎯</span> Ton principal objectif</div>
-      <div class="choice-grid cols-2">
-        <div class="choice-btn" data-group="objectif" data-val="spiritualite" onclick="pick(this)">
-          <span class="icon">🕌</span><span class="label">Spiritualité</span>
-        </div>
-        <div class="choice-btn" data-group="objectif" data-val="business" onclick="pick(this)">
-          <span class="icon">📈</span><span class="label">Business</span>
-        </div>
-        <div class="choice-btn" data-group="objectif" data-val="famille" onclick="pick(this)">
-          <span class="icon">🏡</span><span class="label">Famille</span>
-        </div>
-        <div class="choice-btn" data-group="objectif" data-val="sante" onclick="pick(this)">
-          <span class="icon">💪🏾</span><span class="label">Santé</span>
-        </div>
-      </div>
-    </div>
-
-    <button class="btn-insc" id="btnInsc" onclick="completeInscription()">🚀 Lancer mes défis</button>
+    <div class="insc-section"><div class="section-title">👤 Ton identité</div><div class="field-label">Prénom</div><input type="text" id="fieldName" placeholder="Ex: Aminata, Mamadou..."></div>
+    <div class="insc-section"><div class="section-title">🙏 Spiritualité</div><div class="choice-grid cols-3" id="religionGroup"><div class="choice-btn" data-group="religion" data-val="musulman"><span class="icon">🌙</span><span class="label">Musulman</span></div><div class="choice-btn" data-group="religion" data-val="chretien"><span class="icon">✝️</span><span class="label">Chrétien</span></div><div class="choice-btn" data-group="religion" data-val="autre"><span class="icon">🌟</span><span class="label">Autre</span></div></div></div>
+    <div class="insc-section"><div class="section-title">💼 Statut pro</div><div class="choice-grid cols-3" id="statutGroup"><div class="choice-btn" data-group="statut" data-val="entrepreneur"><span class="icon">🚀</span><span class="label">Entrepreneur</span></div><div class="choice-btn" data-group="statut" data-val="employe"><span class="icon">🏢</span><span class="label">Employé</span></div><div class="choice-btn" data-group="statut" data-val="les deux"><span class="icon">⚡</span><span class="label">Les deux</span></div></div></div>
+    <div class="insc-section"><div class="section-title">👫 Genre</div><div class="choice-grid cols-2" id="genreGroup"><div class="choice-btn" data-group="genre" data-val="homme"><span class="icon">👨🏾</span><span class="label">Homme</span></div><div class="choice-btn" data-group="genre" data-val="femme"><span class="icon">👩🏾</span><span class="label">Femme</span></div></div></div>
+    <div class="insc-section"><div class="section-title">💍 Mariage</div><div class="choice-grid cols-2" id="mariageGroup"><div class="choice-btn" data-group="mariage" data-val="marie"><span class="icon">💍</span><span class="label">Marié(e)</span></div><div class="choice-btn" data-group="mariage" data-val="celibataire"><span class="icon">🧍🏾</span><span class="label">Célibataire</span></div></div></div>
+    <div class="insc-section"><div class="section-title">👶 Enfants</div><div class="choice-grid cols-2" id="enfantsGroup"><div class="choice-btn" data-group="enfants" data-val="oui"><span class="icon">👨‍👧‍👦</span><span class="label">Oui</span></div><div class="choice-btn" data-group="enfants" data-val="non"><span class="icon">🌱</span><span class="label">Non</span></div></div></div>
+    <div class="insc-section"><div class="section-title">🎯 Objectif principal</div><div class="choice-grid cols-2" id="objectifGroup"><div class="choice-btn" data-group="objectif" data-val="spiritualite"><span class="icon">🕌</span><span class="label">Spiritualité</span></div><div class="choice-btn" data-group="objectif" data-val="business"><span class="icon">📈</span><span class="label">Business</span></div><div class="choice-btn" data-group="objectif" data-val="famille"><span class="icon">🏡</span><span class="label">Famille</span></div><div class="choice-btn" data-group="objectif" data-val="sante"><span class="icon">💪🏾</span><span class="label">Santé</span></div></div></div>
+    <button class="btn-insc" id="finalInscBtn">🚀 Lancer mes défis</button>
   </div>
 </div>
 
-<!-- MAIN APP -->
+<!-- APP -->
 <div id="app" class="screen">
-  <div class="app-topbar">
-    <div class="topbar-inner">
-      <div class="topbar-logo">Dieuf<span class="gold-dot">·</span>Dieul</div>
-      <div class="topbar-actions">
-        <button class="topbar-btn" onclick="refreshChallenges()">🔄 Nouveaux</button>
-      </div>
-    </div>
-  </div>
-
+  <div class="app-topbar"><div class="topbar-inner"><div class="topbar-logo">Dieuf·Dieul</div><button class="topbar-btn" id="refreshChallengesBtn">🔄 Nouveaux</button></div></div>
   <div class="app-body">
-    <!-- Greeting -->
-    <div class="greeting-card">
-      <div class="greeting-date" id="todayDate"></div>
-      <div class="greeting-name">Salam, <span class="green" id="greetingName">...</span> 👋🏾</div>
-      <div class="greeting-sub" id="greetingSub">Voici tes 10 défis du jour</div>
-    </div>
-
-    <!-- Tabs -->
-    <div class="section-heading" style="margin-bottom:-8px">
-      <span>📋 Tes Défis</span>
-      <span id="progressText" style="color:var(--emerald);font-weight:800">0/10</span>
-    </div>
-
-    <!-- Progress -->
-    <div class="progress-bar-wrap">
-      <div class="progress-ring">
-        <svg width="72" height="72" viewBox="0 0 72 72">
-          <circle cx="36" cy="36" r="30" fill="none" stroke="#f5ead8" stroke-width="8"/>
-          <circle id="progressCircle" cx="36" cy="36" r="30" fill="none" stroke="#0d6e4f" stroke-width="8"
-            stroke-dasharray="188.5" stroke-dashoffset="188.5" stroke-linecap="round"/>
-        </svg>
-        <div class="progress-ring-text" id="progressPct">0%</div>
-      </div>
-      <div class="progress-info">
-        <h3 id="progressTitle">Commence ta journée 🌅</h3>
-        <p id="progressSub">Accepte un défi pour démarrer</p>
-        <div class="stat-badges">
-          <div class="badge green" id="badgeDone">✅ 0 accomplis</div>
-          <div class="badge red" id="badgeFail">❌ 0 manqués</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Challenges -->
-    <div class="section-heading">
-      <span>🔥 Défis du jour</span>
-    </div>
+    <div class="greeting-card"><div class="greeting-date" id="todayDate"></div><div class="greeting-name">Salam, <span class="green" id="greetingName"></span> 👋🏾</div><div class="greeting-sub">Défis personnalisés du jour</div></div>
+    <div class="progress-bar-wrap"><div class="progress-ring"><svg viewBox="0 0 72 72"><circle cx="36" cy="36" r="30" fill="none" stroke="#f5ead8" stroke-width="8"/><circle id="progressCircle" cx="36" cy="36" r="30" fill="none" stroke="#0d6e4f" stroke-width="8" stroke-dasharray="188.5" stroke-dashoffset="188.5" stroke-linecap="round"/></svg><div class="progress-ring-text" id="progressPct">0%</div></div><div class="progress-info"><h3 id="progressTitle">🌅 Ta journée commence</h3><div class="stat-badges"><span class="badge green" id="badgeDone">✅ 0 accomplis</span><span class="badge red" id="badgeFail">❌ 0 manqués</span></div></div></div>
+    
     <div class="challenges-list" id="challengesList"></div>
 
-    <!-- History -->
-    <div class="section-heading" style="margin-top:8px">
-      <span>📅 Historique</span>
-    </div>
-    <div class="history-list" id="historyList">
-      <div class="empty-state"><div class="big">📭</div>Aucun historique pour le moment</div>
-    </div>
+    <div class="history-list" id="historyList"><div class="empty-state">📭 Aucun historique pour le moment</div></div>
 
-    <!-- Profile section -->
-    <div class="section-heading" style="margin-top:8px">
-      <span>👤 Mon Profil</span>
-    </div>
-    <div class="profile-card" id="profileCard">
-      <div class="profile-avatar" id="profileAvatar">👤</div>
-      <div class="profile-name" id="profileName">...</div>
-      <div class="profile-tags" id="profileTags"></div>
-    </div>
-    <div class="streaks-card">
-      <h3>🔥 Mes Stats</h3>
-      <div class="streak-row">
-        <span class="streak-label">Jours consécutifs</span>
-        <span class="streak-val" id="statStreak">0</span>
-      </div>
-      <div class="streak-row">
-        <span class="streak-label">Total défis accomplis</span>
-        <span class="streak-val" id="statTotal">0</span>
-      </div>
-      <div class="streak-row">
-        <span class="streak-label">Meilleur score</span>
-        <span class="streak-val" id="statBest">0/10</span>
-      </div>
-      <div class="streak-row" style="border:none">
-        <span class="streak-label">Taux de réussite</span>
-        <span class="streak-val" id="statRate">0%</span>
-      </div>
-    </div>
-
-    <button style="width:100%;padding:14px;background:var(--sand-dark);color:var(--muted);border:none;border-radius:var(--radius);font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;" onclick="resetApp()">
-      🔄 Recommencer depuis zéro
-    </button>
+    <div class="profile-card" id="profileCard"><div class="profile-avatar" id="profileAvatar">👤</div><div class="profile-name" id="profileName"></div><div class="profile-tags" id="profileTags"></div></div>
+    <div class="streaks-card"><h3>🔥 Mes stats sacrées</h3><div class="streak-row"><span>Jours consécutifs</span><span class="streak-val" id="statStreak">0</span></div><div class="streak-row"><span>Total défis accomplis</span><span class="streak-val" id="statTotal">0</span></div><div class="streak-row"><span>Meilleur score</span><span class="streak-val" id="statBest">0/10</span></div><div class="streak-row"><span>Taux de réussite</span><span class="streak-val" id="statRate">0%</span></div></div>
+    <button style="background:#f5ead8; border:none; padding:14px; border-radius:40px; font-weight:600; color:#5a4a30; cursor:pointer;" id="resetAppBtn">🔄 Réinitialiser tout</button>
   </div>
+  <div class="bottom-nav"><button class="nav-btn active" data-tab="defis"><span class="nav-icon">📋</span><span>Défis</span></button><button class="nav-btn" data-tab="historique"><span class="nav-icon">📅</span><span>Histoire</span></button><button class="nav-btn" data-tab="profil"><span class="nav-icon">👤</span><span>Profil</span></button></div>
 </div>
 
-<!-- MODAL: Bilan de fin de journée -->
-<div class="modal-overlay" id="bilanModal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h2>🌙 Bilan de la journée</h2>
-    <p id="bilanText">Comment s'est passé ce défi ?</p>
-    <div class="modal-btns">
-      <button class="modal-btn green" onclick="reportChallenge('done')">✅ Je l'ai accompli !</button>
-      <button class="modal-btn red" onclick="reportChallenge('failed')">❌ Je n'ai pas pu</button>
-      <button class="modal-btn cancel" onclick="closeModal()">Plus tard</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
+<div class="modal-overlay" id="bilanModal"><div class="modal"><div class="modal-handle" style="width:40px;height:4px;background:#ddd;border-radius:4px;margin:0 auto 20px;"></div><h2>🌙 Bilan du défi</h2><p id="bilanText"></p><div class="modal-btns" style="margin-top:24px; display:flex; flex-direction:column; gap:10px;"><button class="modal-btn" style="background:#0d6e4f; color:white; padding:14px; border-radius:40px; border:none; font-weight:700;" id="modalDoneBtn">✅ Je l’ai accompli !</button><button class="modal-btn" style="background:#c0392b; color:white; padding:14px; border-radius:40px; border:none; font-weight:700;" id="modalFailBtn">❌ Je n’ai pas pu</button><button class="modal-btn" style="background:#f0e5d6; color:#5a4a30; padding:14px; border-radius:40px; border:none;" id="modalCancelBtn">Plus tard</button></div></div></div>
+<div class="toast" id="toastMsg"></div>
 
 <script>
-// ===================== DATA =====================
-const ALL_CHALLENGES = {
-  spiritualite_musulman: [
-    { text: "Lis 10 versets du Coran avec traduction", cat: "🌙 Spiritualité", verse: "\"Ceci est le Livre sans doute...\" (2:2)" },
-    { text: "Fais 5 minutes de dhikr conscient", cat: "🌙 Spiritualité", verse: "\"Certes, par le rappel d'Allah les cœurs se tranquillisent\" (13:28)" },
-    { text: "Prie à l'heure pour tous tes salaats aujourd'hui", cat: "🌙 Spiritualité", verse: "\"Accomplis la prière...\" (2:43)" },
-    { text: "Fais une prière sincère pour une personne que tu n'aimes pas trop", cat: "🌙 Spiritualité", verse: "\"Pardonne et enjoins le bien...\" (7:199)" },
-    { text: "Fais une sadaqa aujourd'hui, même symbolique", cat: "🌙 Spiritualité", verse: "\"Allah aime les bienfaisants\" (3:134)" },
-    { text: "Médite 10 minutes sur un verset du Coran", cat: "🌙 Spiritualité", verse: "\"Ne méditent-ils pas sur le Coran ?\" (4:82)" },
-    { text: "Répète 100 fois Alhamdoulillah avec gratitude", cat: "🌙 Spiritualité", verse: "\"Si vous êtes reconnaissants, J'augmenterai...\" (14:7)" },
-    { text: "Apprends la signification d'un nom d'Allah", cat: "🌙 Spiritualité", verse: "\"Il possède les plus beaux noms...\" (59:24)" },
-    { text: "Fais une invocation pour tes parents", cat: "🌙 Spiritualité", verse: "\"...et dis: Seigneur, fais-leur miséricorde\" (17:24)" },
-    { text: "Récite la Fatiha 3 fois avec intention pour ta réussite", cat: "🌙 Spiritualité", verse: "" },
-  ],
-  spiritualite_chretien: [
-    { text: "Lis un passage de la Bible et médite dessus", cat: "✝️ Spiritualité", verse: "\"Ta parole est une lampe à mes pieds\" (Ps 119:105)" },
-    { text: "Prie pour une personne avec qui tu as des difficultés", cat: "✝️ Spiritualité", verse: "\"Aimez vos ennemis...\" (Mt 5:44)" },
-    { text: "Donne quelque chose à quelqu'un dans le besoin", cat: "✝️ Spiritualité", verse: "\"Donnez, et il vous sera donné\" (Lc 6:38)" },
-    { text: "Consacre 10 minutes à une prière silencieuse", cat: "✝️ Spiritualité", verse: "" },
-    { text: "Dis merci à Dieu pour 5 bénédictions spécifiques", cat: "✝️ Spiritualité", verse: "\"En toutes choses, rendez grâces\" (1Th 5:18)" },
-  ],
-  discipline: [
-    { text: "Respecte ton planning du jour sans exception", cat: "💪🏾 Discipline", verse: "" },
-    { text: "Évite les réseaux sociaux pendant 2 heures", cat: "💪🏾 Discipline", verse: "" },
-    { text: "Termine une tâche que tu repousses depuis longtemps", cat: "💪🏾 Discipline", verse: "" },
-    { text: "Organise ton espace de travail pour avoir l'esprit clair", cat: "💪🏾 Discipline", verse: "" },
-    { text: "Écris tes 3 priorités du jour au réveil", cat: "💪🏾 Discipline", verse: "" },
-    { text: "Garde ton calme dans une situation difficile", cat: "💪🏾 Discipline", verse: "" },
-    { text: "Ne te plains pas aujourd'hui — transforme chaque plainte en solution", cat: "💪🏾 Discipline", verse: "" },
-    { text: "Reste concentré 1 heure sans distraction sur une seule tâche", cat: "💪🏾 Discipline", verse: "" },
-    { text: "Dis non à une demande inutile, juste pour te respecter", cat: "💪🏾 Discipline", verse: "" },
-    { text: "Supprime une chose de ton quotidien qui te fait perdre du temps", cat: "💪🏾 Discipline", verse: "" },
-  ],
-  business_entrepreneur: [
-    { text: "Appelle un client existant pour lui demander comment il va", cat: "🚀 Business", verse: "" },
-    { text: "Écris 3 idées simples pour augmenter tes revenus ce mois", cat: "🚀 Business", verse: "" },
-    { text: "Partage une astuce ou retour d'expérience sur tes réseaux", cat: "🚀 Business", verse: "" },
-    { text: "Identifie une offre à améliorer et note 2 améliorations concrètes", cat: "🚀 Business", verse: "" },
-    { text: "Remercie 3 clients par message personnalisé", cat: "🚀 Business", verse: "" },
-    { text: "Lis un article utile sur ton domaine et note une idée à appliquer", cat: "🚀 Business", verse: "" },
-    { text: "Fixe un objectif de revenus précis pour la semaine en cours", cat: "🚀 Business", verse: "" },
-    { text: "Crée une liste 'à ne plus faire' dans ton business", cat: "🚀 Business", verse: "" },
-    { text: "Prospecte 2 nouveaux clients potentiels aujourd'hui", cat: "🚀 Business", verse: "" },
-    { text: "Analyse tes dépenses du mois et identifie une économie possible", cat: "🚀 Business", verse: "" },
-  ],
-  famille: [
-    { text: "Appelle un membre de ta famille que tu n'as pas appelé depuis longtemps", cat: "🏡 Famille", verse: "" },
-    { text: "Passe 30 minutes de qualité avec tes proches sans téléphone", cat: "🏡 Famille", verse: "" },
-    { text: "Exprime ta gratitude à quelqu'un de ta famille", cat: "🏡 Famille", verse: "" },
-    { text: "Propose ton aide à un proche sans qu'il te le demande", cat: "🏡 Famille", verse: "" },
-    { text: "Partage un bon souvenir avec un membre de ta famille", cat: "🏡 Famille", verse: "" },
-  ],
-  sante: [
-    { text: "Bois 2 litres d'eau aujourd'hui et note chaque verre", cat: "💚 Santé", verse: "" },
-    { text: "Marche 20 minutes minimum aujourd'hui", cat: "💚 Santé", verse: "" },
-    { text: "Dors avant minuit ce soir", cat: "💚 Santé", verse: "" },
-    { text: "Évite les aliments transformés et sucrés aujourd'hui", cat: "💚 Santé", verse: "" },
-    { text: "Fais 10 minutes d'exercice physique ou d'étirements", cat: "💚 Santé", verse: "" },
-  ],
-  mindset: [
-    { text: "Écris 3 choses pour lesquelles tu es reconnaissant(e) ce matin", cat: "🧠 Mindset", verse: "" },
-    { text: "Lis 10 pages d'un livre de développement personnel", cat: "🧠 Mindset", verse: "" },
-    { text: "Répète 5 affirmations positives à voix haute", cat: "🧠 Mindset", verse: "" },
-    { text: "Prends 10 minutes pour réfléchir seul(e) à ta vie et tes objectifs", cat: "🧠 Mindset", verse: "" },
-    { text: "Évalue ta journée le soir : qu'est-ce qui s'est bien passé ?", cat: "🧠 Mindset", verse: "" },
-    { text: "Écrire ce que tu veux vraiment vivre avant la fin de l'année", cat: "🧠 Mindset", verse: "" },
-    { text: "Apprends une nouvelle compétence ou un nouveau mot aujourd'hui", cat: "🧠 Mindset", verse: "" },
-    { text: "Fais une action vers ton grand rêve, même si c'est tout petit", cat: "🧠 Mindset", verse: "" },
-  ],
-  relations: [
-    { text: "Fais un compliment sincère à 2 personnes aujourd'hui", cat: "🤝 Relations", verse: "" },
-    { text: "Écoute quelqu'un sans l'interrompre ni donner de conseils", cat: "🤝 Relations", verse: "" },
-    { text: "Demande pardon à quelqu'un si tu lui dois des excuses", cat: "🤝 Relations", verse: "" },
-    { text: "Fais une bonne action sans rien attendre en retour", cat: "🤝 Relations", verse: "" },
-    { text: "Envoie un message de soutien à quelqu'un qui traverse une période difficile", cat: "🤝 Relations", verse: "" },
-  ],
-  mariage: [
-    { text: "Fais une surprise agréable à ton/ta conjoint(e) aujourd'hui", cat: "💍 Couple", verse: "" },
-    { text: "Prends 20 minutes pour discuter de vos projets ensemble", cat: "💍 Couple", verse: "" },
-    { text: "Exprime ta gratitude à ton/ta conjoint(e) sincèrement", cat: "💍 Couple", verse: "" },
-  ],
-  parent: [
-    { text: "Passe du temps de qualité avec tes enfants sans téléphone", cat: "👨‍👧‍👦 Parentalité", verse: "" },
-    { text: "Apprends quelque chose de nouveau à tes enfants aujourd'hui", cat: "👨‍👧‍👦 Parentalité", verse: "" },
-    { text: "Écoute tes enfants parler de leur journée avec attention", cat: "👨‍👧‍👦 Parentalité", verse: "" },
-  ],
+// ---------- CHALLENGES BANK ----------
+const BANK = {
+  spiritualite_musulman: [ {text:"Lis 10 versets du Coran avec méditation",cat:"🌙 Spiritualité",verse:"\"Ce Livre est sans nul doute un guide...\" (2:2)"}, {text:"Dhikr 5 minutes après le Fajr",cat:"🌙 Spiritualité",verse:"\"Certes, par le rappel d'Allah les cœurs s'apaisent\" (13:28)"}, {text:"Prie toutes les prières à l'heure",cat:"🌙 Spiritualité",verse:""}, {text:"Fais une aumône discrète",cat:"🌙 Spiritualité",verse:"\"Allah aime les bienfaisants\" (3:134)"}, {text:"Invoque pour tes parents",cat:"🌙 Spiritualité",verse:"\"Seigneur, fais-leur miséricorde\" (17:24)"} ],
+  spiritualite_chretien: [ {text:"Lis un passage des Évangiles et médite",cat:"✝️ Spiritualité",verse:"\"Heureux ceux qui écoutent la parole de Dieu\" (Luc 11:28)"}, {text:"Prie pour une personne en difficulté",cat:"✝️ Spiritualité",verse:""}, {text:"Remercie Dieu pour 5 bénédictions",cat:"✝️ Spiritualité",verse:""} ],
+  discipline: [ {text:"Respecte ton planning à la minute",cat:"💪 Discipline",verse:""}, {text:"Évite les réseaux sociaux 2h",cat:"💪 Discipline",verse:""}, {text:"Fais une tâche que tu repousses",cat:"💪 Discipline",verse:""}, {text:"Organise ton espace de travail",cat:"💪 Discipline",verse:""} ],
+  business_entrepreneur: [ {text:"Appelle un client pour prendre des nouvelles",cat:"🚀 Business",verse:""}, {text:"Identifie 3 idées pour augmenter ton CA",cat:"🚀 Business",verse:""}, {text:"Crée une offre spéciale pour un fidèle",cat:"🚀 Business",verse:""} ],
+  famille: [ {text:"Appelle un membre de ta famille éloigné",cat:"🏡 Famille",verse:""}, {text:"30 min sans téléphone avec tes proches",cat:"🏡 Famille",verse:""} ],
+  sante: [ {text:"Bois 2L d'eau et note chaque verre",cat:"💚 Santé",verse:""}, {text:"Marche 20 minutes",cat:"💚 Santé",verse:""}, {text:"Dors avant minuit",cat:"💚 Santé",verse:""} ],
+  mindset: [ {text:"Écris 3 choses pour lesquelles tu es reconnaissant",cat:"🧠 Mindset",verse:""}, {text:"Lis 10 pages de développement perso",cat:"🧠 Mindset",verse:""}, {text:"Affirmations positives à voix haute",cat:"🧠 Mindset",verse:""} ],
+  relations: [ {text:"Fais un compliment sincère à 2 personnes",cat:"🤝 Relations",verse:""}, {text:"Écoute sans interrompre",cat:"🤝 Relations",verse:""} ],
+  mariage: [ {text:"Fais une surprise à ton conjoint",cat:"💍 Couple",verse:""}, {text:"Parle de vos projets futurs",cat:"💍 Couple",verse:""} ],
+  parent: [ {text:"Passe du temps éducatif avec tes enfants",cat:"👨‍👧 Parentalité",verse:""} ]
 };
 
-// ===================== STATE =====================
-let profile = {};
-let todaysChallenges = [];
-let state = {};
-let history = [];
-let pendingBilan = null;
+let profile = null, todays = [], stateMap = {}, historyLog = [];
+let pendingIdx = null;
 
-function loadState() {
-  try {
-    profile = JSON.parse(localStorage.getItem('dd_profile') || 'null') || null;
-    todaysChallenges = JSON.parse(localStorage.getItem('dd_challenges') || '[]');
-    state = JSON.parse(localStorage.getItem('dd_state') || '{}');
-    history = JSON.parse(localStorage.getItem('dd_history') || '[]');
-    const lastDate = localStorage.getItem('dd_lastdate');
-    const today = getTodayKey();
-    if (lastDate !== today) {
-      // New day: save yesterday to history, reset challenges
-      if (lastDate && todaysChallenges.length > 0) {
-        saveToHistory(lastDate);
-      }
-      todaysChallenges = [];
-      state = {};
-      localStorage.setItem('dd_lastdate', today);
-      saveState();
-    }
-  } catch(e) {}
-}
+function todayKey() { return new Date().toISOString().slice(0,10); }
+function saveAll() { localStorage.setItem('dd_profile',JSON.stringify(profile)); localStorage.setItem('dd_challenges',JSON.stringify(todays)); localStorage.setItem('dd_state',JSON.stringify(stateMap)); localStorage.setItem('dd_history',JSON.stringify(historyLog)); localStorage.setItem('dd_lastdate',todayKey()); }
+function loadAll() { try { profile=JSON.parse(localStorage.getItem('dd_profile')); todays=JSON.parse(localStorage.getItem('dd_challenges'))||[]; stateMap=JSON.parse(localStorage.getItem('dd_state'))||{}; historyLog=JSON.parse(localStorage.getItem('dd_history'))||[]; const last=localStorage.getItem('dd_lastdate'); if(last!==todayKey() && todays.length){ if(last) historyLog.unshift({date:last, done:Object.values(stateMap).filter(v=>v==='done').length, failed:Object.values(stateMap).filter(v=>v==='failed').length, total:todays.length}); todays=[]; stateMap={}; localStorage.setItem('dd_lastdate',todayKey()); saveAll(); } } catch(e){} }
 
-function saveState() {
-  localStorage.setItem('dd_profile', JSON.stringify(profile));
-  localStorage.setItem('dd_challenges', JSON.stringify(todaysChallenges));
-  localStorage.setItem('dd_state', JSON.stringify(state));
-  localStorage.setItem('dd_history', JSON.stringify(history));
-}
-
-function saveToHistory(dateKey) {
-  const done = Object.values(state).filter(v => v === 'done').length;
-  const failed = Object.values(state).filter(v => v === 'failed').length;
-  history.unshift({ date: dateKey, done, failed, total: todaysChallenges.length });
-  if (history.length > 30) history = history.slice(0, 30);
-  saveState();
-}
-
-function getTodayKey() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-// ===================== CHALLENGE GENERATION =====================
-function buildPool() {
-  let pool = [];
-  if (!profile) return [];
-
-  const rel = profile.religion;
-  const obj = profile.objectif;
-  const statut = profile.statut;
-  const mariage = profile.mariage;
-  const enfants = profile.enfants;
-
-  // Spiritual (3 challenges)
-  if (rel === 'musulman') {
-    pool.push(...ALL_CHALLENGES.spiritualite_musulman.map(c => ({...c})));
-  } else if (rel === 'chretien') {
-    pool.push(...ALL_CHALLENGES.spiritualite_chretien.map(c => ({...c})));
-  }
-
-  // Business (2 if entrepreneur)
-  if (statut === 'entrepreneur' || statut === 'les deux') {
-    pool.push(...ALL_CHALLENGES.business_entrepreneur.map(c => ({...c})));
-  }
-
-  // Discipline (always)
-  pool.push(...ALL_CHALLENGES.discipline.map(c => ({...c})));
-
-  // Mindset
-  pool.push(...ALL_CHALLENGES.mindset.map(c => ({...c})));
-
-  // Relations
-  pool.push(...ALL_CHALLENGES.relations.map(c => ({...c})));
-
-  // Santé
-  if (obj === 'sante') pool.push(...ALL_CHALLENGES.sante.map(c => ({...c})));
-  else pool.push(...ALL_CHALLENGES.sante.slice(0,2).map(c => ({...c})));
-
-  // Famille
-  if (obj === 'famille') pool.push(...ALL_CHALLENGES.famille.map(c => ({...c})));
-  else pool.push(...ALL_CHALLENGES.famille.slice(0,2).map(c => ({...c})));
-
-  // Marriage
-  if (mariage === 'marie') pool.push(...ALL_CHALLENGES.mariage.map(c => ({...c})));
-
-  // Parents
-  if (enfants === 'oui') pool.push(...ALL_CHALLENGES.parent.map(c => ({...c})));
-
-  // Shuffle
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
-
-  return pool.slice(0, 10);
-}
-
-// ===================== UI =====================
-function startApp() {
-  loadState();
-  if (profile && profile.name) {
-    showApp();
-  } else {
-    show('inscription');
-  }
-}
-
-function show(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-function showApp() {
-  show('app');
-  if (!todaysChallenges.length) {
-    todaysChallenges = buildPool();
-    saveState();
-  }
-  renderApp();
-}
-
-function renderApp() {
-  // Date
-  const d = new Date();
-  const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
-  document.getElementById('todayDate').textContent = d.toLocaleDateString('fr-FR', opts);
-
-  // Greeting
-  document.getElementById('greetingName').textContent = profile.name || '';
-  if (profile.religion === 'muslumane') {
-    document.getElementById('greetingSub').textContent = 'Bismillah — commence ta journée avec intention';
-  }
-
-  // Progress
-  const done = Object.values(state).filter(v => v === 'done').length;
-  const failed = Object.values(state).filter(v => v === 'failed').length;
-  const accepted = Object.values(state).filter(v => v === 'accepted').length;
-  const total = todaysChallenges.length;
-  const pct = total ? Math.round((done / total) * 100) : 0;
-  const circ = 188.5;
-  document.getElementById('progressCircle').style.strokeDashoffset = circ - (pct / 100) * circ;
-  document.getElementById('progressPct').textContent = pct + '%';
-  document.getElementById('progressText').textContent = done + '/' + total;
-  document.getElementById('badgeDone').textContent = '✅ ' + done + ' accomplis';
-  document.getElementById('badgeFail').textContent = '❌ ' + failed + ' manqués';
-
-  if (pct === 100) {
-    document.getElementById('progressTitle').textContent = '🎉 Journée accomplie !';
-    document.getElementById('progressSub').textContent = 'Tu es une inspiration !';
-  } else if (done > 0) {
-    document.getElementById('progressTitle').textContent = '💪🏾 Continue comme ça !';
-    document.getElementById('progressSub').textContent = (total - done - failed) + ' défis restants';
-  }
-
-  // Challenges
-  const list = document.getElementById('challengesList');
-  list.innerHTML = '';
-  todaysChallenges.forEach((ch, i) => {
-    const s = state[i] || 'pending';
-    const card = document.createElement('div');
-    card.className = 'challenge-card ' + s;
-    card.id = 'ch-' + i;
-
-    let btns = '';
-    if (s === 'pending') {
-      btns = `<button class="ch-btn accept" onclick="acceptChallenge(${i})">🔥 Je relève ce défi</button>`;
-    } else if (s === 'accepted') {
-      btns = `
-        <button class="ch-btn accept active">🔥 Relevé !</button>
-        <button class="ch-btn success" onclick="openBilan(${i}, 'done')">✅ Accompli</button>
-        <button class="ch-btn fail" onclick="openBilan(${i}, 'failed')">❌ Raté</button>
-      `;
-    } else if (s === 'done') {
-      btns = `<button class="ch-btn success active">✅ Accompli !</button>`;
-    } else if (s === 'failed') {
-      btns = `<button class="ch-btn fail active">❌ Non accompli</button>`;
-    }
-
-    const verse = ch.verse ? `<div class="challenge-verse">${ch.verse}</div>` : '';
-    card.innerHTML = `
-      <div class="challenge-num">${i + 1}</div>
-      <div class="challenge-content">
-        <div class="challenge-category">${ch.cat}</div>
-        <div class="challenge-text">${ch.text}</div>
-        ${verse}
-        <div class="challenge-actions">${btns}</div>
-      </div>
-    `;
-    list.appendChild(card);
-  });
-
-  // History
-  const hList = document.getElementById('historyList');
-  if (history.length === 0) {
-    hList.innerHTML = '<div class="empty-state"><div class="big">📭</div>L\'historique apparaîtra demain</div>';
-  } else {
-    hList.innerHTML = '';
-    history.slice(0, 7).forEach(h => {
-      const pctH = h.total ? Math.round((h.done / h.total) * 100) : 0;
-      const cl = pctH >= 70 ? '' : pctH >= 40 ? 'mid' : 'low';
-      const item = document.createElement('div');
-      item.className = 'history-item';
-      const dateStr = new Date(h.date + 'T00:00:00').toLocaleDateString('fr-FR', {weekday:'short', day:'numeric', month:'short'});
-      item.innerHTML = `
-        <div>
-          <div class="history-date">${dateStr}</div>
-          <div class="history-sub">✅ ${h.done} accomplis · ❌ ${h.failed} manqués</div>
-        </div>
-        <div class="history-score ${cl}">${h.done}/${h.total}</div>
-      `;
-      hList.appendChild(item);
-    });
-  }
-
-  // Profile card
-  const avatar = profile.genre === 'femme' ? '👩🏾' : '👨🏾';
-  document.getElementById('profileAvatar').textContent = avatar;
-  document.getElementById('profileName').textContent = profile.name || '';
-  const tags = [];
-  if (profile.religion) tags.push(profile.religion === 'musulman' ? '🌙 Musulman' : profile.religion === 'chretien' ? '✝️ Chrétien' : '🌟 Spirituel');
-  if (profile.statut) tags.push('💼 ' + profile.statut.charAt(0).toUpperCase() + profile.statut.slice(1));
-  if (profile.mariage === 'marie') tags.push('💍 Marié(e)');
-  if (profile.enfants === 'oui') tags.push('👨‍👧‍👦 Parent');
-  if (profile.objectif) tags.push('🎯 ' + profile.objectif.charAt(0).toUpperCase() + profile.objectif.slice(1));
-  document.getElementById('profileTags').innerHTML = tags.map(t => `<span class="profile-tag">${t}</span>`).join('');
-
-  // Stats
-  const allDone = history.reduce((a, h) => a + h.done, 0) + done;
-  const allTotal = history.reduce((a, h) => a + h.total, 0) + (done + failed);
-  const bestDay = history.length ? Math.max(...history.map(h => h.done)) : done;
-  document.getElementById('statTotal').textContent = allDone;
-  document.getElementById('statBest').textContent = bestDay + '/10';
-  document.getElementById('statRate').textContent = allTotal ? Math.round((allDone / allTotal) * 100) + '%' : '0%';
-
-  // Streak calc
-  let streak = 0;
-  const todayKey = getTodayKey();
-  let checkDate = new Date();
-  checkDate.setDate(checkDate.getDate() - 1);
-  for (let i = 0; i < history.length; i++) {
-    const d = checkDate.toISOString().slice(0,10);
-    if (history[i].date === d && history[i].done > 0) {
-      streak++;
-      checkDate.setDate(checkDate.getDate() - 1);
-    } else break;
-  }
-  if (done > 0) streak++; // count today if any done
-  document.getElementById('statStreak').textContent = streak + ' 🔥';
-}
-
-// ===================== INSCRIPTION =====================
-const picks = {};
-
-function pick(el) {
-  const group = el.dataset.group;
-  const val = el.dataset.val;
-  document.querySelectorAll(`[data-group="${group}"]`).forEach(b => b.classList.remove('selected'));
-  el.classList.add('selected');
-  picks[group] = val;
-}
-
-function completeInscription() {
-  const name = document.getElementById('fieldName').value.trim();
-  if (!name) { showToast('✏️ Écris ton prénom pour continuer'); return; }
-  if (!picks.religion) { showToast('🙏 Choisis ta spiritualité'); return; }
-  if (!picks.statut) { showToast('💼 Choisis ton statut professionnel'); return; }
-  if (!picks.genre) { showToast('👤 Choisis ton genre'); return; }
-  if (!picks.mariage) { showToast('💍 Indique ta situation familiale'); return; }
-  if (!picks.enfants) { showToast('👶 As-tu des enfants ?'); return; }
-  if (!picks.objectif) { showToast('🎯 Choisis ton objectif principal'); return; }
-
-  profile = { name, ...picks };
-  localStorage.setItem('dd_lastdate', getTodayKey());
-  saveState();
-  todaysChallenges = buildPool();
-  saveState();
-  showApp();
-}
-
-// ===================== CHALLENGE ACTIONS =====================
-function acceptChallenge(i) {
-  state[i] = 'accepted';
-  saveState();
-  renderApp();
-  showToast('🔥 Défi accepté ! Tu peux le faire.');
-}
-
-function openBilan(i, defaultAction) {
-  pendingBilan = { i, defaultAction };
-  const ch = todaysChallenges[i];
-  document.getElementById('bilanText').textContent = `"${ch.text}"`;
-  document.getElementById('bilanModal').classList.add('open');
-}
-
-function reportChallenge(result) {
-  if (!pendingBilan) return;
-  state[pendingBilan.i] = result;
-  pendingBilan = null;
-  closeModal();
-  saveState();
-  renderApp();
-  if (result === 'done') showToast('✅ Félicitations ! Défi accompli !');
-  else showToast('💪🏾 La prochaine fois. Continue !');
-}
-
-function closeModal() {
-  document.getElementById('bilanModal').classList.remove('open');
-  pendingBilan = null;
-}
-
-function refreshChallenges() {
-  if (!confirm('Générer 10 nouveaux défis pour aujourd\'hui ?')) return;
-  todaysChallenges = buildPool();
-  state = {};
-  saveState();
-  renderApp();
-  showToast('🔄 Nouveaux défis générés !');
-}
-
-function resetApp() {
-  if (!confirm('Effacer toutes les données et recommencer ?')) return;
-  localStorage.clear();
-  location.reload();
-}
-
-// ===================== TOAST =====================
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-// ===================== BOOT =====================
-window.addEventListener('load', () => {
-  loadState();
-  // Show splash for 1s if first visit, else go directly
-  if (profile && profile.name) {
-    setTimeout(() => startApp(), 800);
-  }
-});
-
-// Close modal on overlay click
-document.getElementById('bilanModal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-</script>
-</body>
-</html>
+function buildDailyChallenges(){
+  if(!profile) return [];
+  let pool=[];
+  if(profile.religion==='musulman') pool.push(...BANK.spiritualite_musulman.map(c=>({...c})));
+  else if(profile.religion==='chretien') pool.push(...BANK.spiritualite_chretien.map(c=>({...c})));
+  if(profile.statut==='entrepreneur'||profile.statut==='les deux') pool.push(...BANK.business_entrepreneur.map(c=>({...c})));
+  pool.push(...BANK.discipline.map(c=>({...c})), ...BANK.mindset.map(c=>({...c})), ...BANK.relations.map(c=>({...c})));
+  if(profile.objectif==='sante') pool.push(...BANK.sante.map(c=>({...c})));
+  else pool.push(...BANK.sante.slice(0,2));
+  if(profile.objectif==='famille') pool.push(...BANK.famille);
+  else pool.push(...BANK.famille.slice(0,2));
+  if(profile.mariage==='marie') pool.push(...BANK.mariage);
+  if(profile.enfants==='oui') pool.push(...BANK.parent);
+ 
